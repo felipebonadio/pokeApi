@@ -1,20 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Poke Api
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png">
+    </ion-thumbnail>
+    <ion-label>
+      <div>
+        <h3>Bulbasaur</h3>
+        <ion-badge color="success">Grass</ion-badge>
+        <ion-badge color="tertiary">Poison</ion-badge>
+    </div>
+  </ion-label>
+    <ion-chip color="success">
+      <ion-label>001</ion-label>
+    </ion-chip>
+  </ion-item>
+  
 </ion-content>
