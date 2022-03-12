@@ -19,7 +19,7 @@
     </div>
   </ion-label>
     <ion-chip [color]="pokemon.tipos[0]">
-      <ion-label>{{pokemon.numero}}</ion-label>
+      <ion-label>{{pokemon.numero.toString().padStart(3, '0')}}</ion-label>
     </ion-chip>
   </ion-item> 
 </ion-content>
