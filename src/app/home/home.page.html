@@ -8,66 +8,18 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-item>
+  <ion-item *ngFor = "let pokemon of listaPokemon">
     <ion-thumbnail slot="start">
-      <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png">
+      <img src="{{urlImg + pokemon.foto}}">
     </ion-thumbnail>
     <ion-label>
       <div>
-        <h3>Bulbasaur</h3>
-        <ion-badge color="success">Grass</ion-badge>
-        <ion-badge color="tertiary">Poison</ion-badge>
+        <h3>{{pokemon.nome | titlecase}}</h3>
+        <ion-badge *ngFor="let tipo of pokemon.tipos" [color]="tipo">{{tipo | titlecase}}</ion-badge>        
     </div>
   </ion-label>
-    <ion-chip color="success">
-      <ion-label>001</ion-label>
+    <ion-chip [color]="pokemon.tipos[0]">
+      <ion-label>{{pokemon.numero}}</ion-label>
     </ion-chip>
-  </ion-item>
-
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png">
-    </ion-thumbnail>
-    <ion-label>
-      <div>
-        <h3>Charmander</h3>
-        <ion-badge color="danger">Fire</ion-badge>
-        
-    </div>
-  </ion-label>
-    <ion-chip color="danger">
-      <ion-label>004</ion-label>
-    </ion-chip>
-  </ion-item>
-
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png">
-    </ion-thumbnail>
-    <ion-label>
-      <div>
-        <h3>Squirtle</h3>
-        <ion-badge color="secondary">Water</ion-badge>        
-    </div>
-  </ion-label>
-    <ion-chip color="secondary">
-      <ion-label>007</ion-label>
-    </ion-chip>
-  </ion-item>
-
-  <ion-item>
-    <ion-thumbnail slot="start">
-      <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png">
-    </ion-thumbnail>
-    <ion-label>
-      <div>
-        <h3>Pikachu</h3>
-        <ion-badge color="warning">Electric</ion-badge>        
-    </div>
-  </ion-label>
-    <ion-chip color="warning">
-      <ion-label>025</ion-label>
-    </ion-chip>
-  </ion-item>
-  
+  </ion-item> 
 </ion-content>
