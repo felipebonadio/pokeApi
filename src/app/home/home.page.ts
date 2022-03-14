@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   urlImg = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/';
 
@@ -54,7 +55,11 @@ export class HomePage {
     }
   ]
 
-  constructor() {}
+  constructor(public apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.apiService.buscarListaPokemon(this.apiService.urlApi);
+  }
 
 
 
