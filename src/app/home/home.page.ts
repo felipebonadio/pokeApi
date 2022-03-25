@@ -9,9 +9,7 @@ import { ApiService } from '../services/api.service';
 export class HomePage implements OnInit {
 
   urlImg = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/';
-
   listaPokemon = [];
-
   count: number = 0;
   next: string = "";
   previous: string = "";
@@ -26,7 +24,6 @@ export class HomePage implements OnInit {
   buscarPokemon(url: string) {
     this.listaPokemon = [];
     this.apiService.buscarListaPokemon(url).subscribe(retorno => {
-      console.log(retorno)
       this.count = retorno['count'];
       this.next = retorno['next'];
       this.previous = retorno['previous'];
@@ -45,7 +42,6 @@ export class HomePage implements OnInit {
     this.paginaAtual = this.paginaAtual + 1;
     this.listaPokemon = [];
     this.apiService.buscarListaPokemon(url).subscribe(retorno => {
-      console.log(retorno)
       this.count = retorno['count'];
       this.next = retorno['next'];
       this.previous = retorno['previous'];
@@ -63,7 +59,6 @@ export class HomePage implements OnInit {
     this.paginaAtual = this.paginaAtual - 1;
     this.listaPokemon = [];
     this.apiService.buscarListaPokemon(url).subscribe(retorno => {
-      console.log(retorno)
       this.count = retorno['count'];
       this.next = retorno['next'];
       this.previous = retorno['previous'];
