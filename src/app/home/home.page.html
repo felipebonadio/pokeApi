@@ -8,18 +8,38 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-item *ngFor = "let pokemon of listaPokemon">
+  <ion-item *ngFor="let pokemon of listaPokemon">
     <ion-thumbnail slot="start">
-      <img src="{{urlImg + pokemon.foto}}">
+      <img [src]="urlImg + pokemon.id.toString().padStart(3,'0') + '.png'">
     </ion-thumbnail>
+
     <ion-label>
       <div>
-        <h3>{{pokemon.nome | titlecase}}</h3>
-        <ion-badge *ngFor="let tipo of pokemon.tipos" [color]="tipo">{{tipo | titlecase}}</ion-badge>        
-    </div>
-  </ion-label>
-    <ion-chip [color]="pokemon.tipos[0]">
-      <ion-label>{{pokemon.numero.toString().padStart(3, '0')}}</ion-label>
+        <h3>{{ pokemon.name | titlecase }}</h3>
+        <ion-badge *ngFor="let tipo of pokemon.types" [color]="tipo['type']['name']"> {{tipo['type']['name'] | uppercase}} </ion-badge>
+      </div>
+    </ion-label>
+
+    <ion-chip [color]="pokemon['types'][0]['type']['name']" slot="end">
+      <ion-label>{{pokemon.id.toString().padStart(3, '0')}}</ion-label>
     </ion-chip>
-  </ion-item> 
+  </ion-item>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="previous">
+      <ion-button (click)="paginaAnterior(previous)">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>        
+      </ion-button>
+    </ion-buttons>   
+    <ion-title class="ion-text-center">{{paginaAtual}} de {{totalPaginas(count)}}</ion-title>    
+    <ion-buttons slot="end" *ngIf="next">
+      <ion-button (click)="proximaPagina(next)">
+        <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

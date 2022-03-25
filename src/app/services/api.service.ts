@@ -1,30 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  urlApi = 'https://pokeapi.co/api/v2/pokemon';
+  urlApi = 'https://pokeapi.co/api/v2/pokemon/';
 
   constructor(private http: HttpClient) { }
 
-  public buscarListaPokemon(url: string){
-    const listaPokemon =[];
-    this.http.get(url).subscribe(dadosRetorno => {
-      dadosRetorno['results'].forEach(cadaPokemon =>{
-        const dadosPokemon = this.buscarDadosPokemon(cadaPokemon['url']);
-        listaPokemon.push(dadosPokemon);        
-      })
-    });
-    console.warn(listaPokemon);
+  buscarListaPokemon(url: string) {
+    return this.http.get(url);
   }
 
-  buscarDadosPokemon(url: string){
-    let pokemon = {};
-    return this.http.get(url).subscribe(dadosPokemon =>{
-      return dadosPokemon;
-    });
+  buscarDadosPokemon(url: string) {
+    return this.http.get(url)
   }
 }

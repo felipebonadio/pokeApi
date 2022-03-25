@@ -8,59 +8,76 @@ import { ApiService } from '../services/api.service';
 })
 export class HomePage implements OnInit {
 
-  urlImg = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/';
+  urlImg = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/';
 
-  listaPokemon = [
-    {
-      numero: 1,
-      nome: 'Bulbasaur',
-      tipos: [
-        'grass',
-        'poison'
-      ],
-      foto: '001.png'
-    },
-    {
-      numero: 4,
-      nome: 'Charmander',
-      tipos: [
-        'fire'
-      ],
-      foto: '004.png'
-    },
-    {
-      numero: 7,
-      nome: 'Squirtle',
-      tipos: [
-        'water'
-      ],
-      foto: '007.png'
-    },
-    {
-      numero: 25,
-      nome: 'Pikachu',
-      tipos: [
-        'electric'
-      ],
-      foto: '025.png'
-    },
-    {
-      numero: 149,
-      nome: 'Dragonite',
-      tipos: [
-        'dragon',
-        'flying'
-      ],
-      foto: '149.png'
-    }
-  ]
+  listaPokemon = [];
 
-  constructor(public apiService: ApiService) {}
+  count: number = 0;
+  next: string = "";
+  previous: string = "";
+  paginaAtual: number = 1;
+
+  constructor(public apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.buscarListaPokemon(this.apiService.urlApi);
+    this.buscarPokemon(this.apiService.urlApi);
   }
 
+  buscarPokemon(url: string) {
+    this.listaPokemon = [];
+    this.apiService.buscarListaPokemon(url).subscribe(retorno => {
+      console.log(retorno)
+      this.count = retorno['count'];
+      this.next = retorno['next'];
+      this.previous = retorno['previous'];
 
+      retorno['results'].forEach(pokemon => {
+        this.apiService.buscarDadosPokemon(pokemon['url']).subscribe(dadosPokemon => {
+          this.listaPokemon.push(dadosPokemon);
+          this.listaPokemon.sort((a, b) => a['id'] - b['id']);
+        });
+      });
+    });
 
+  }
+
+  proximaPagina(url: string) {
+    this.paginaAtual = this.paginaAtual + 1;
+    this.listaPokemon = [];
+    this.apiService.buscarListaPokemon(url).subscribe(retorno => {
+      console.log(retorno)
+      this.count = retorno['count'];
+      this.next = retorno['next'];
+      this.previous = retorno['previous'];
+
+      retorno['results'].forEach(pokemon => {
+        this.apiService.buscarDadosPokemon(pokemon['url']).subscribe(dadosPokemon => {
+          this.listaPokemon.push(dadosPokemon);
+          this.listaPokemon.sort((a, b) => a['id'] - b['id']);
+        });
+      });
+    });
+  }
+
+  paginaAnterior(url: string) {
+    this.paginaAtual = this.paginaAtual - 1;
+    this.listaPokemon = [];
+    this.apiService.buscarListaPokemon(url).subscribe(retorno => {
+      console.log(retorno)
+      this.count = retorno['count'];
+      this.next = retorno['next'];
+      this.previous = retorno['previous'];
+
+      retorno['results'].forEach(pokemon => {
+        this.apiService.buscarDadosPokemon(pokemon['url']).subscribe(dadosPokemon => {
+          this.listaPokemon.push(dadosPokemon);
+          this.listaPokemon.sort((a, b) => a['id'] - b['id']);
+        });
+      });
+    });
+  }
+
+  totalPaginas(numero: number) {
+    return Math.ceil(numero / 20);
+  }
 }
