@@ -40,36 +40,12 @@ export class HomePage implements OnInit {
 
   proximaPagina(url: string) {
     this.paginaAtual = this.paginaAtual + 1;
-    this.listaPokemon = [];
-    this.apiService.buscarListaPokemon(url).subscribe(retorno => {
-      this.count = retorno['count'];
-      this.next = retorno['next'];
-      this.previous = retorno['previous'];
-
-      retorno['results'].forEach(pokemon => {
-        this.apiService.buscarDadosPokemon(pokemon['url']).subscribe(dadosPokemon => {
-          this.listaPokemon.push(dadosPokemon);
-          this.listaPokemon.sort((a, b) => a['id'] - b['id']);
-        });
-      });
-    });
+    this.buscarPokemon(url);
   }
 
   paginaAnterior(url: string) {
     this.paginaAtual = this.paginaAtual - 1;
-    this.listaPokemon = [];
-    this.apiService.buscarListaPokemon(url).subscribe(retorno => {
-      this.count = retorno['count'];
-      this.next = retorno['next'];
-      this.previous = retorno['previous'];
-
-      retorno['results'].forEach(pokemon => {
-        this.apiService.buscarDadosPokemon(pokemon['url']).subscribe(dadosPokemon => {
-          this.listaPokemon.push(dadosPokemon);
-          this.listaPokemon.sort((a, b) => a['id'] - b['id']);
-        });
-      });
-    });
+    this.buscarPokemon(url);
   }
 
   totalPaginas(numero: number) {
